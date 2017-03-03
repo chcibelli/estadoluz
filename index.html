@@ -48,8 +48,8 @@
 
 		/*
 		 * Urls a descargar cada x minutos:
-		 * http://www.enre.gov.ar/web/web.nsf/inicio_Edesur?openform -> edesur.html
-		 * http://www.enre.gov.ar/web/web.nsf/inicio_Edenor?openform -> edenor.html
+		 * http://www.enre.gov.ar/web/web.nsf/inicio_Edesur?openform -> ext/edesur.html
+		 * http://www.enre.gov.ar/web/web.nsf/inicio_Edenor?openform -> ext/edenor.html
 		 */
 
 		$(function () {
@@ -57,7 +57,7 @@
 			function refreshProviders(provider) {
 				
 			    $.ajax({
-			        url: provider+".html",
+			        url: "ext/"+provider+".html",
 			        type: "get",
 			        dataType: "html",
 			        success: function (data) {
