@@ -1,0 +1,79 @@
+<html>
+	<head>
+		<title> Estado Luz</title>
+	</head>
+	<body>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+		<link href="http://fonts.googleapis.com/css?family=Droid+Serif:400,700|Roboto:300,400,500,700,900|Open+Sans:400,300,600,700|Oswald:400,300,700|Roboto+Condensed:400,300,700|Roboto+Slab:400,100,300,700|Montserrat:400,700" rel="stylesheet" type="text/css" />
+		<style type="text/css">
+		.container-calc{width:95%;height:832px;background:#fff;padding:8px;position:relative}.logo{position:absolute;bottom:13px;right:14px}.logo img{width:85px}tr{border-bottom:1px solid #ccc;width:70%}.tg{border-collapse:collapse;border-spacing:0;border-color:#999;border:none;width:100%}.tg td{font-family:"Roboto",Arial,helvetica,clean,sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0;overflow:hidden;word-break:normal;border-color:#999;color:#444;text-align:center;vertical-align:top}.tg th{font-family:"Roboto",Arial,helvetica,clean,sans-serif;font-size:14px;font-weight:700;padding:10px 5px;border-style:solid;border-width:0;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#cb1212}.tg .tg-vn4c{vertical-align:top}.tg .tg-yw4l{vertical-align:top}.tg .tg-6k2t{vertical-align:top}select{padding:6px;border-radius:8px;border-color:#737373;width:100%}button{border-radius:9px;padding:8px;background:#FFF87B;text-align:center;border:0;width:173px;font-weight:700;text-transform:uppercase;font-size:12px;line-height:21px;cursor:pointer;box-shadow:2px 2px 5px #E2E2E2}button:hover{background:#EADF28}
+		</style>
+<div class="container-calc">
+		<table class="tg">
+			<tr>
+				<th colspan="3" class="tg-031e">Estado de la red de distribución eléctrica en CABA y GBA</th>
+			</tr>
+			<tr>
+				<td class="tg-vn4c"><b>Area de concesión</b></td>
+				<td class="tg-6k2t"><b>Usuarios con suministro</b></td>
+
+				<td class="tg-vn4c"><b>Usuarios sin suministro</b></td>
+			</tr>
+			
+			<tr>
+				<td class="tg-031e" style="font-size:15px;font-weight: bold">EDENOR</td>
+				<td class="tg-yw4l" style="color:green" id="edenor-con"></td>
+				<td class="tg-031e" style="color:red" id="edenor-sin"></td>
+			</tr>
+
+			<tr>
+				<td class="tg-031e" style="font-size:15px;font-weight: bold">EDESUR</td>
+				<td class="tg-yw4l" style="color:green" id="edesur-con">1111</td>
+				<td class="tg-031e" style="color:red" id="edesur-sin">2222</td>
+			</tr>
+			
+
+			<tr>
+				<td colspan="3" class="tg-031e" style="font-size:15px;font-weight: bold"><a href="http://www.enre.gov.ar/" target="_blank">VER INFORMACIÓN DETALLADA</a</td>
+			</tr>
+
+			<tr>
+				<td colspan="3" class="tg-031e" style="font-size:10px;font-weight: bold">Datos obtenidos del sitio web oficial del ENRE</td>
+			</tr>
+
+		</table>
+
+</div>
+		<script>
+
+		/*
+		 * Urls a descargar cada x minutos:
+		 * http://www.enre.gov.ar/web/web.nsf/inicio_Edesur?openform -> edesur.html
+		 * http://www.enre.gov.ar/web/web.nsf/inicio_Edenor?openform -> edenor.html
+		 */
+
+		$(function () {
+						
+			function refreshProviders(provider) {
+				
+			    $.ajax({
+			        url: provider+".html",
+			        type: "get",
+			        dataType: "html",
+			        success: function (data) {
+	
+						$('#'+provider+'-con').html($(data).find('#Informacion_superior').children().children().eq(1).find('td:nth-child(2)').text());		        	
+						$('#'+provider+'-sin').html($(data).find('#Informacion_superior').children().children().eq(1).find('td:first').text());		        	
+	
+			        }
+			    });
+		   }
+		   
+		   refreshProviders('edenor');
+		   refreshProviders('edesur');
+		   
+		});
+
+		</script>
+	</body>
+</html>
